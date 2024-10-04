@@ -1,0 +1,8 @@
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+x64/**
+/Linked_List/Linked_List/.vs
+Linked_List/Linked_List/Linked_List.sln
+/Linked_List/.vs
+Linked_List/Linked_List.sln
