@@ -84,57 +84,51 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
-void moveOddItemsToBack(LinkedList *ll)
+void moveOddItemsToBack(LinkedList* ll)
 {
-	ListNode* cur, * pre, * temp; // 현재 노드, 이전 노드, 임시 노드
-	int i;
-
-	if (ll == NULL || ll->size == 0)	// 연결 리스트가 비어있으면 종료
+	if (ll == NULL || ll->size == 0) // 리스트가 비어 있는지 확인
 		return;
 
-	cur = ll->head;				// 현재 노드를 헤드로 설정(처음부터 탐색하기 위해)
-	pre = NULL;					// 이전 노드는 없으므로 NULL로 설정
+	ListNode* cur = ll->head;  // 현재 노드를 리스트의 시작 노드로 설정
+	ListNode* prev = NULL;     // 직전 노드는 NULL로 초기화
+	ListNode* last = NULL;     // 마지막 노드를 저장할 포인터
 
-	while (cur != NULL)
-	{
-		if (cur->item % 2 != 0)	  // 노드값이 홀수면
-		{
-			if (pre == NULL)     // 이전 노드가 없으면
-			{
-				ll->head = cur->next;	// 헤드를 다음 노드로 설정
-				temp = cur;				// 현재 노드를 임시 노드에 저장
-				cur = cur->next;		// 현재 노드를 다음 노드로 설정
-				temp->next = NULL;		// 임시 노드의 다음 노드를 NULL로 설정
-				if (ll->head == NULL)
-				{
-					ll->head = temp;	// 헤드가 NULL이면 임시 노드를 헤드로 설정
-					return;
-				}
-				temp = ll->head;		// 임시 노드를 헤드로 설정
-				while (temp->next != NULL)	// 마지막 노드로 이동(현재 노드를 마지막 노드로 만들기 위해)
-					temp = temp->next;
-				temp->next = cur;		// 마지막 노드의 다음 노드를 현재 노드로 설정
-			}
-			else
-			{
-				pre->next = cur->next;	// 이전 노드의 다음 노드를 현재 노드의 다음 노드로 설정
-				temp = cur;				// 현재 노드를 임시 노드에 저장
-				cur = cur->next;		// 현재 노드를 다음 노드로 설정
-				temp->next = NULL;		// 임시 노드의 다음 노드를 NULL로 설정
-				temp = ll->head;	
-				while (temp->next != NULL)
-					temp = temp->next;
-				temp->next = cur;
-			}
-		}
-		else
-		{
-			pre = cur;			// 노드값이 짝수면 이전 노드를 현재 노드로 설정
-			cur = cur->next;	// 현재 노드를 다음 노드로 설정
-		}
+	// 마지막 노드 찾기
+	last = ll->head;
+	while (last->next != NULL) {
+		last = last->next;
 	}
-	/* add your code here */
+
+	ListNode* tail = last; // 홀수 노드를 추가할 위치
+
+	int originalSize = ll->size; // 무한 루프 방지
+
+	while (originalSize > 0) {
+		if (cur->item % 2 != 0) {	// 첫 번째 노드가 홀수면
+			if (cur == ll->head) {
+				ll->head = cur->next; // 헤드를 다음 노드로 변경
+				tail->next = cur;     // 마지막에 현재 노드 추가
+				cur->next = NULL;
+				tail = cur;           // 새로운 tail로 설정
+				cur = ll->head;       // 헤드부터 다시 시작
+			}
+			else {	// 중간 노드가 홀수면
+				prev->next = cur->next; // 이전 노드가 현재 노드 건너뛰게 설정
+				tail->next = cur;       // 현재 노드를 마지막에 추가
+				cur->next = NULL;
+				tail = cur;             // 새로운 tail로 설정
+				cur = prev->next;       // 다음 노드로 이동
+			}
+		}
+		else {
+			// 현재 노드가 짝수면
+			prev = cur;         // 이전 노드를 현재 노드로 이동
+			cur = cur->next;    // 다음 노드로 이동
+		}
+		originalSize--; // 반복 횟수--
+	}
 }
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 
