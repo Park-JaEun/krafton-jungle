@@ -103,7 +103,45 @@ int main()
 
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
-    /* add your code here */
+	/* add your code here */
+	// ll1의 현재 노드, ll2의 현재 노드, ll1의 다음 노드, ll2의 다음 노드
+	ListNode* cur1, * cur2, * temp1, * temp2; 
+
+	if (ll1 == NULL || ll2 == NULL)	// 둘 중 하나라도 빈 리스트면 종료
+		return;
+
+	cur1 = ll1->head;		// ll1의 head 노드
+	cur2 = ll2->head;		// ll2의 head 노드
+
+	if (cur1 == NULL || cur2 == NULL)	// 둘 중 하나라도 빈 리스트면 종료
+		return;
+
+	while (cur1 != NULL && cur2 != NULL)	// 두 리스트의 노드가 모두 존재하는 동안
+	{
+		temp1 = cur1->next;	// ll1의 다음 노드
+		temp2 = cur2->next;	// ll2의 다음 노드
+
+		cur1->next = cur2;	// ll1의 다음 노드를 ll2의 head 노드로 변경
+		cur2->next = temp1;	// ll2의 다음 노드를 ll1의 다음 노드로 변경
+
+		cur1 = temp1;	// ll1의 현재 노드를 ll1의 다음 노드로 변경
+		cur2 = temp2;	// ll2의 현재 노드를 ll2의 다음 노드로 변경
+	}
+
+	//if (cur2 != NULL)
+	//{
+	//	if (cur1 == NULL)
+	//		ll1->head = ll2->head;
+	//	else
+	//		cur1->next = cur2;
+	//	ll2->head = NULL;
+	//}
+
+	//ll1->size += ll2->size;
+	//ll2->size = 0;
+
+	 // ll2의 남은 노드 업데이트
+	ll2->head = cur2;	// ll2의 head 노드를 ll2의 현재 노드로 변경
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

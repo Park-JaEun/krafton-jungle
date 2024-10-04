@@ -86,6 +86,53 @@ int main()
 
 void moveOddItemsToBack(LinkedList *ll)
 {
+	ListNode* cur, * pre, * temp; // 현재 노드, 이전 노드, 임시 노드
+	int i;
+
+	if (ll == NULL || ll->size == 0)	// 연결 리스트가 비어있으면 종료
+		return;
+
+	cur = ll->head;				// 현재 노드를 헤드로 설정(처음부터 탐색하기 위해)
+	pre = NULL;					// 이전 노드는 없으므로 NULL로 설정
+
+	while (cur != NULL)
+	{
+		if (cur->item % 2 != 0)	  // 노드값이 홀수면
+		{
+			if (pre == NULL)     // 이전 노드가 없으면
+			{
+				ll->head = cur->next;	// 헤드를 다음 노드로 설정
+				temp = cur;				// 현재 노드를 임시 노드에 저장
+				cur = cur->next;		// 현재 노드를 다음 노드로 설정
+				temp->next = NULL;		// 임시 노드의 다음 노드를 NULL로 설정
+				if (ll->head == NULL)
+				{
+					ll->head = temp;	// 헤드가 NULL이면 임시 노드를 헤드로 설정
+					return;
+				}
+				temp = ll->head;		// 임시 노드를 헤드로 설정
+				while (temp->next != NULL)	// 마지막 노드로 이동(현재 노드를 마지막 노드로 만들기 위해)
+					temp = temp->next;
+				temp->next = cur;		// 마지막 노드의 다음 노드를 현재 노드로 설정
+			}
+			else
+			{
+				pre->next = cur->next;	// 이전 노드의 다음 노드를 현재 노드의 다음 노드로 설정
+				temp = cur;				// 현재 노드를 임시 노드에 저장
+				cur = cur->next;		// 현재 노드를 다음 노드로 설정
+				temp->next = NULL;		// 임시 노드의 다음 노드를 NULL로 설정
+				temp = ll->head;	
+				while (temp->next != NULL)
+					temp = temp->next;
+				temp->next = cur;
+			}
+		}
+		else
+		{
+			pre = cur;			// 노드값이 짝수면 이전 노드를 현재 노드로 설정
+			cur = cur->next;	// 현재 노드를 다음 노드로 설정
+		}
+	}
 	/* add your code here */
 }
 
