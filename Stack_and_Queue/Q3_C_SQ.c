@@ -103,7 +103,31 @@ int main()
 
 int isStackPairwiseConsecutive(Stack *s)
 {
-  /* add your code here */
+	Stack temp;				// 임시 스택
+	temp.ll.head = NULL;	// 임시 스택 초기화
+
+	int num1, num2;					// 스택에서 pop한 숫자 2개
+	int isPairwiseConsecutive = 1;	// 쌍으로 연속적인지 저장할 변수
+
+	while (!isEmptyStack(s))
+	{
+		num1 = pop(s);				// 비교할 1번 숫자
+		push(&temp, num1);			// 임시 스택에 저장
+
+		if (!isEmptyStack(s))		// 스택이 비어있지 않다면
+		{
+			num2 = pop(s);			// 비교할 2번 숫자
+			push(&temp, num2);		// 임시 스택에 저장
+
+			if (abs(num1 - num2) != 1)	// 차가 1이 아니면
+			{
+				isPairwiseConsecutive = 0;	// 쌍으로 연속적이지 않다
+				break;
+			}
+		}
+	}
+
+	return isPairwiseConsecutive;
 }
 
 //////////////////////////////////////////////////////////////////////////////////

@@ -109,7 +109,13 @@ int main()
 
 void recursiveReverse(Queue *q)
 {
-/* add your code here */
+	int temp;				// 임시 저장 변수
+	if (isEmptyQueue(q))	// 큐가 비어있으면
+		return;
+
+	temp = dequeue(q);		// 큐에서 하나 빼서 임시 저장
+	recursiveReverse(q);	// 재귀 호출
+	enqueue(q, temp);		// 큐에 넣기
 }
 
 //////////////////////////////////////////////////////////////////

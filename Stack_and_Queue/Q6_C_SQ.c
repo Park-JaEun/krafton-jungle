@@ -111,7 +111,15 @@ int main()
 
 void removeUntil(Stack *s, int value)
 {
-/* add your code here */
+	while (!isEmptyStack(s)) {				// 스택의 끝까지
+		if (s->ll.head->item == value) {	// 스택의 헤드가 찾는 값이면
+			break;							// 루프 탈출
+		}
+		else {
+			pop(s);							// 아니면 pop -> 헤드가 다음 노드로 이동
+		}
+	}
+
 }
 
 //////////////////////////////////////////////////////////////////////////////////

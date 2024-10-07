@@ -112,7 +112,19 @@ int main()
 
 void reverse(Queue *q)
 {
-/* add your code here */
+	
+	Stack temp;					// 임시 스택 생성
+	temp.ll.head = NULL;		// 헤드 초기화
+	temp.ll.size = 0;			// 사이즈 초기화
+
+	while (!isEmptyQueue(q)) {
+		push(&temp, dequeue(q));	// 큐에서 빼서 스택에 넣기
+	}
+
+	while (!isEmptyStack(&temp)) {
+		enqueue(q, pop(&temp));		// 스택에서 빼서 큐에 넣기
+	}
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

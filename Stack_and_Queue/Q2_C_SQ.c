@@ -113,7 +113,22 @@ int main()
 
 void createStackFromLinkedList(LinkedList *ll, Stack *s)
 {
-    /* add your code here */
+	ListNode* cur;			// 현재 노드
+	if (ll == NULL)
+		return;
+
+	cur = ll->head;			// 헤더부터	시작
+	if (cur == NULL)
+		return;
+
+	removeAllItemsFromStack(s); // 스택을 초기화
+
+	while (cur != NULL)		// 노드가 NULL이 아닐 때까지(노드 끝까지)
+	{
+		push(s, cur->item);
+		cur = cur->next;
+	}
+
 }
 
 void removeEvenValues(Stack *s)

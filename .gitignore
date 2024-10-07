@@ -9,3 +9,9 @@ Linked_List/Linked_List.sln
 /Linked_List/Linked_List/x64
 /Linked_List/x64
 *.out
+/Stack_and_Queue/.vs
+Stack_and_Queue/SQ.sln
+/Stack_and_Queue/x64
+/Stack_and_Queue/SQ
+/Binary_Tree/.vs
+Binary_Tree/BT.sln
