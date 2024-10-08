@@ -105,7 +105,18 @@ int main()
 
 void mirrorTree(BTNode *node)
 {
-	/* add your code here */
+	BTNode* temp;       // 왼쪽 서브 트리와 오른쪽 서브 트리를 바꿀 때 사용할 임시 노드
+
+	if (node == NULL)   // 노드가 없으면 리턴
+		return;
+
+	mirrorTree(node->left);         // 왼쪽 서브트리 노드의 미러링
+	mirrorTree(node->right);		// 오른쪽 서브트리 노드의 미러링
+
+	temp = node->left;			  // 왼쪽 서브트리 노드와 오른쪽 서브트리 노드를 바꿈
+	node->left = node->right;     // 왼쪽 서브트리 노드와 오른쪽 서브트리 노드를 바꿈
+	node->right = temp;		   // 왼쪽 서브트리 노드와 오른쪽 서브트리 노드를 바꿈
+
 }
 
 //////////////////////////////////////////////////////////////////////////////////

@@ -100,9 +100,18 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
-int hasGreatGrandchild(BTNode *node)
+int hasGreatGrandchild(BTNode* node)        // 자신 밑으로 레벨이 3이상 차이나는 노드들을 출력
 {
-	/* add your code here */
+	if (node == NULL) return 0;                     // 빈 노드이면 0을 반환
+
+	int left = hasGreatGrandchild(node->left);      // 왼쪽 서브트리의 레벨
+	int right = hasGreatGrandchild(node->right);	// 오른쪽 서브트리의 레벨
+
+	if (left == 3 || right == 3)                    // 레벨이 3이면 출력
+        printf("%d \n", node->item);
+
+	if (left > right) return left + 1;               // 왼쪽 서브트리가 더 크면 왼쪽 서브트리 레벨 + 1 반환
+	else return right + 1;                           // 오른쪽 서브트리가 더 크면 오른쪽 서브트리 레벨 + 1 반환
 }
 
 //////////////////////////////////////////////////////////////////////////////////
