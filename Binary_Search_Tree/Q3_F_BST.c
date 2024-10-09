@@ -91,7 +91,25 @@ int main()
 
 void preOrderIterative(BSTNode *root)
 {
-	 /* add your code here */
+	Stack s;
+	s.top = NULL;
+
+	BSTNode* current = root;				// current 노드를 root로 초기화
+
+	while (current != NULL || !isEmpty(&s))		// current가 NULL이 아니거나 스택이 비어있지 않을 때
+	{
+		while (current != NULL)			// current가 NULL이 아닐 때
+		{
+			printf("%d ", current->item);		// current의 item 출력
+			if (current->right != NULL)			// current의 오른쪽 자식이 NULL이 아닐 때
+				push(&s, current->right);		// current의 오른쪽 자식을 스택에 push
+			current = current->left;			// current를 왼쪽 자식으로 이동
+		}
+		if (!isEmpty(&s))					// 스택이 비어있지 않으면
+			current = pop(&s);				// 스택에서 pop한 값을 current로 설정
+
+	}
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////

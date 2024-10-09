@@ -91,7 +91,29 @@ int main()
 
 void postOrderIterativeS2(BSTNode *root)
 {
-	 /* add your code here */
+	Stack s1, s2;				// 확인할 노드를 저장할 스택 s1, 출력할 노드를 저장할 스택 s2
+	s1.top = NULL;
+	s2.top = NULL;
+
+	BSTNode* current = root;				// current 노드를 root로 초기화
+	push(&s1, current);						// current 노드를 확인할 노드 리스트 s1에 push
+
+	while (!isEmpty(&s1))					// s1이 비어있지 않을 때
+	{
+		current = pop(&s1);					// s1에서 pop한 노드를 current에 저장
+		push(&s2, current);					// pop한 노드를 출력할 노드 리스트 s2에 push
+
+		if (current->left != NULL)			// current의 왼쪽 자식이 NULL이 아니면
+			push(&s1, current->left);		// current의 왼쪽 자식을 s1에 push
+		if (current->right != NULL)			// current의 오른쪽 자식이 NULL이 아니면
+			push(&s1, current->right);		// current의 오른쪽 자식을 s1에 push
+	}
+
+	while (!isEmpty(&s2))					// 출력할 노드가 있으면 순서대로 출력
+	{
+		current = pop(&s2);
+		printf("%d ", current->item);
+	}
 }
 
 /* Given a binary search tree and a key, this function

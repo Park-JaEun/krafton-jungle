@@ -91,7 +91,39 @@ int main()
 
 void postOrderIterativeS1(BSTNode *root)
 {
-	 /* add your code here */
+	// 스택을 하나만 사용하여 구현
+	Stack s;						// 트리 노드들을 저장할 스택
+	s.top = NULL;
+
+	BSTNode* current = root;			// current 노드를 root로 초기화
+	BSTNode* prev = NULL;				// 이전 노드를 NULL로 초기화
+
+	if (current == NULL)
+		return;
+
+	do   // 한번은 실행하고 조건을 검사해야 함
+	{
+		while (current != NULL)		// current가 NULL이 아닐 때
+		{
+			push(&s, current);			// current 노드를 스택에 push
+			current = current->left;	// current를 왼쪽 자식으로 이동
+		}
+
+		while (current == NULL && !isEmpty(&s))	// current가 NULL이고 스택이 비어있지 않을 때
+		{
+			current = peek(&s);			// 스택의 top을 current로 설정
+			if (current->right == NULL || current->right == prev)	// current의 오른쪽 자식이 NULL이거나 이전 노드가 오른쪽 자식일 때
+			{
+				printf("%d ", current->item);
+				pop(&s);							// current를 출력하고 스택에서 pop
+				prev = current;						// 이전 노드를 current로 설정
+				current = NULL;						// current를 NULL로 설정
+			}
+			else
+				current = current->right;			// current를 오른쪽 자식으로 이동
+		}
+	} while (!isEmpty(&s));							// 스택이 비어있지 않을 때까지 반복
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
